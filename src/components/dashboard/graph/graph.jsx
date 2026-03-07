@@ -22,7 +22,7 @@ const data = [
 
 export default function TrendChart() {
   return (
-    <div className="w-[660px] h-[420px] ml-5 mt-10 bg-bgCard rounded-2xl p-6 flex flex-col">
+    <div className="w-[660px] h-[420px] ml-7 mt-7 mr-7 bg-bgCard rounded-2xl p-6 flex flex-col">
 
       
       <div className="flex justify-between items-start mb-4">

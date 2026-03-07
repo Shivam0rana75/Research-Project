@@ -12,14 +12,14 @@ import {
 const data = [
   { department: "Distillation", value: 12 },
   { department: "Cracking", value: 8 },
-  { department: "IT Security", value: 15 },
+  { department: "IT-Security", value: 15 },
   { department: "SCADA", value: 6 },
   { department: "Network", value: 9 },
 ];
 
 export default function DepartmentChart() {
   return (
-    <div className="w-[660px] h-[420px] ml-5 mt-10 mr-5 bg-bgCard rounded-2xl p-6 flex flex-col">
+    <div className="w-[660px] h-[420px] ml-7 mt-7 mr-7 bg-bgCard rounded-2xl p-6 flex flex-col">
 
      
       <div className="mb-4">

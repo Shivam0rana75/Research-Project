@@ -1,6 +1,6 @@
 export default function Card({ title, value, icon, percentage }) {
   return (
-    <div className="bg-[#161b22] border border-gray-800 rounded-2xl ml-5 mr-5 p-6 w-74 h-55 flex flex-col justify-between shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+    <div className="bg-[#161b22] border border-gray-800 rounded-2xl mt-5 ml-7 mr-7 p-6 w-74 h-55 flex flex-col justify-between shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
 
       
       <div className="flex justify-between items-start">
