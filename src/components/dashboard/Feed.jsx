@@ -1,96 +1,8 @@
 import FeedCard from "./FeedCard";
 import Link from "next/link";
+import {incidents} from '@/data/data';
 export default function Feed(){
-    const incidents = [
-  {
-    severity: "Critical",
-    domain: "Security",
-    status: "Open",
-    incidentId: "INC-001",
-    title: "Unauthorized Access Attempt",
-    location: "Process Control",
-    time: "2:30 PM",
-    assets: 5,
-    escalated: "escalated",
-  },
-  {
-    severity: "Critical",
-    domain: "Security",
-    status: "Open",
-    incidentId: "INC-002",
-    title: "Unauthorized Access Attempt",
-    location: "Process Control",
-    time: "2:30 PM",
-    assets: 5,
-    escalated: "sent",
-  },
-  {
-    severity: "Critical",
-    domain: "Security",
-    status: "Open",
-    incidentId: "INC-003",
-    title: "Unauthorized Access Attempt",
-    location: "Process Control",
-    time: "2:30 PM",
-    assets: 5,
-    escalated: "not escalated",
-  },
-  {
-    severity: "Critical",
-    domain: "Security",
-    status: "Open",
-    incidentId: "INC-004",
-    title: "Unauthorized Access Attempt",
-    location: "Process Control",
-    time: "2:30 PM",
-    assets: 5,
-    escalated: "not escalated",
-  },
-  {
-    severity: "Critical",
-    domain: "Security",
-    status: "Open",
-    incidentId: "INC-005",
-    title: "Unauthorized Access Attempt",
-    location: "Process Control",
-    time: "2:30 PM",
-    assets: 5,
-    escalated: "not escalated",
-  },
-  {
-    severity: "Critical",
-    domain: "Security",
-    status: "Open",
-    incidentId: "INC-006",
-    title: "Unauthorized Access Attempt",
-    location: "Process Control",
-    time: "2:30 PM",
-    assets: 5,
-    escalated: "not escalated",
-  },
-  {
-    severity: "Critical",
-    domain: "Security",
-    status: "Open",
-    incidentId: "INC-007",
-    title: "Unauthorized Access Attempt",
-    location: "Process Control",
-    time: "2:30 PM",
-    assets: 5,
-    escalated: "not escalated",
-  },
-  {
-    severity: "Critical",
-    domain: "Security",
-    status: "Open",
-    incidentId: "INC-008",
-    title: "Unauthorized Access Attempt",
-    location: "Process Control",
-    time: "2:30 PM",
-    assets: 5,
-    escalated: "not escalated",
-  },
-];
+    
     return (
         <div className="bg-bgCard flex flex-col items-center justify-center mt-5 ml-7 mr-7 w-[60%] rounded-2xl p-6 ">
 
@@ -111,25 +23,14 @@ export default function Feed(){
                 
             </div>
 
-            {incidents.map((incident)=>(
-                <Link 
-                    className="w-full" 
-                    href={`/dashboard/${incident.incidentId}`} 
-                    key={incident.incidentId}
-                >
-                <FeedCard 
-                    key={incident.incidentId}
-                    severity={incident.severity}
-                    domain={incident.domain}
-                    status={incident.status}
-                    incidentId={incident.incidentId}
-                    title={incident.title}
-                    location={incident.location}
-                    time={incident.time}
-                    assets={incident.assets}
-                    escalated={incident.escalated}
-                />
-                </Link>
+            {Object.values(incidents).map((incident)=> (
+              <Link 
+                key={incident.incidentId}
+                href={`/dashboard/${incident.incidentId}`}
+                className="w-full"
+              >
+                <FeedCard incident={incident} />
+              </Link> 
             ))}
 
             
