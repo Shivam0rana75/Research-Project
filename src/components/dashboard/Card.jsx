@@ -13,7 +13,8 @@ export default function Card({ title, value, icon, percentage }) {
         </div>
 
        
-        <div className="bg-red-500/10 
+        { percentage && (
+          <div className="bg-red-500/10 
                         border border-red-500/30
                         text-red-500
                         rounded-md 
@@ -21,7 +22,7 @@ export default function Card({ title, value, icon, percentage }) {
           <p className="text-xs font-semibold">
             ↑ {percentage}%
           </p>
-        </div>
+        </div>)}
       </div>
 
    

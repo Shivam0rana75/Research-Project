@@ -1,3 +1,4 @@
+"use client";
 import SystemStatus from "./SystemStatus"
 import SystemTime from "./SystemTime"
 import { Bell, User } from "lucide-react";
