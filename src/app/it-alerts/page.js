@@ -5,15 +5,39 @@ import Card from "@/components/dashboard/Card.jsx";
 import { Factory } from "lucide-react";
 
 const columns = [
-  { header: "Alert ID",    accessor: "incidentId", type: "id" },
-  { header: "Severity",    accessor: "severity",   type: "severity" },
-  { header: "System",      accessor: "location",   type: "device" },
+  { header: "Alert ID", accessor: "incidentId" },
+  { header: "Severity", accessor: "severity", type: "severity" },
+  { header: "System", accessor: "system" },
+  { header: "Alert Type", accessor: "type" },
   { header: "Description", accessor: "description" },
-  { header: "Timestamp",   accessor: "time" },
-  { header: "Status",      accessor: "status",     type: "status" },
+  { header: "Timestamp", accessor: "time" },
+  { header: "Status", accessor: "status", type: "status" },
 ];
 
-const itAlerts = Object.values(incidents).filter((inc) => inc.domain === "IT");
+const getAlertRows = (incidents, domain) => {
+  return Object.values(incidents)
+    .filter((inc) => inc.domain === domain)
+    .flatMap((inc) => {
+      const otAssets = inc.affectedAssets?.OTEquipment || [];
+      const itAssets = inc.affectedAssets?.ITServices || [];
+
+      const assets = domain === "OT" ? otAssets : itAssets;
+
+      return assets.map((asset, index) => ({
+        id: `${inc.incidentId}-${index}`,
+        incidentId: inc.incidentId,
+        severity: asset.level,
+        system: asset.name,
+        type: asset.type,
+        description: inc.description,
+        time: inc.time,
+        status: inc.status,
+      }));
+    });
+};
+const itAlerts = getAlertRows(incidents, "IT");
+
+
 
 export default function ITAlertsPage() {
   return (

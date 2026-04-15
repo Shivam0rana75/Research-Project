@@ -26,7 +26,7 @@ export default function Table({ columns, data, onRowClick }) {
           ) : (
             data.map((row) => (
               <TableRow
-                key={row.incidentId}
+                key={row.id}
                 row={row}
                 columns={columns}
                 onClick={onRowClick}

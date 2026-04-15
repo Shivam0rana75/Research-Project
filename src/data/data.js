@@ -71,7 +71,7 @@ export const incidents = {
   "INC-003": {
     severity: "Critical",
     domain: "OT",
-    status: "Open",
+    status: "Resolved",
     incidentId: "INC-003",
     title: "Suspicious SCADA Network Traffic",
     location: "Control Network",
