@@ -1,27 +1,68 @@
 import Element from "./sbElements";
-import { LayoutDashboard } from "lucide-react";
-import { AlertTriangle } from "lucide-react";
-import { Shield } from "lucide-react";
-import { Server } from "lucide-react";
-import { Building2 } from "lucide-react";
-import { Bell } from "lucide-react";
-import { BarChart3 } from "lucide-react";
-import { FileText } from "lucide-react";
-import { Settings } from "lucide-react";
-import { Factory } from "lucide-react";
-export default function Group({isOpen}){
-    return (
-        <div>
-                    <Element title={isOpen ? "Dashboard" : ''} icon={LayoutDashboard} />
-                    <Element title={isOpen ? "Alerts" : ''} icon={AlertTriangle} />
-                    <Element title={isOpen ? "OT Alerts" : ''} icon={Factory} />
-                    <Element title={isOpen ? "IT Alerts" : ''} icon={Shield} />
-                    <Element title={isOpen ? "Affected Assets" : ''} icon={Server} />
-                    <Element title={isOpen ? "Departments" : ''} icon={Building2} />
-                    <Element title={isOpen ? "Alert Rules" : ''} icon={Bell} />
-                    <Element title={isOpen ? "Reports & Analytics" : ''} icon={BarChart3} />
-                    <Element title={isOpen ? "Audit Logs" : ''} icon={FileText} />
-                    <Element title={isOpen ? "Settings" : ''} icon={Settings} />
-        </div>
-    )
-} 
+
+import {
+  LayoutDashboard,
+  AlertTriangle,
+  Shield,
+  Server,
+  Building2,
+  BarChart3,
+  Factory,
+} from "lucide-react";
+
+export default function Group({ isOpen }) {
+  return (
+    <div className="flex flex-col gap-2">
+
+      <Element
+        title="Dashboard"
+        icon={LayoutDashboard}
+        href="/dashboard"
+        isOpen={isOpen}
+      />
+
+      <Element
+        title="Live-Incidents"
+        icon={AlertTriangle}
+        href="/live-incidents"
+        isOpen={isOpen}
+      />
+
+      <Element
+        title="OT Alerts"
+        icon={Factory}
+        href="/ot-alerts"
+        isOpen={isOpen}
+      />
+
+      <Element
+        title="IT Alerts"
+        icon={Shield}
+        href="/it-alerts"
+        isOpen={isOpen}
+      />
+
+      <Element
+        title="Affected Assets"
+        icon={Server}
+        href="/affected-assets"
+        isOpen={isOpen}
+      />
+
+      <Element
+        title="Departments"
+        icon={Building2}
+        href="/departments"
+        isOpen={isOpen}
+      />
+
+      <Element
+        title="Reports & Analytics"
+        icon={BarChart3}
+        href="/Reports_&_Analytics"
+        isOpen={isOpen}
+      />
+
+    </div>
+  );
+}
