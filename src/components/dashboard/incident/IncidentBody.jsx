@@ -16,7 +16,7 @@ export default function IncidentBody({ incident }) {
             </div>
 
             <div className="flex flex-col ml-7 w-4/12">
-                  <DeliveryStatus dept={incident.notifiedDepartments} />
+                  <DeliveryStatus incidentId={incident.incidentId} />
 
                   <div className="bg-bgCard flex flex-col justify-center mt-5 rounded-3xl">
                     <p className="text-white text-xl font-semibold mt-3 p-6">

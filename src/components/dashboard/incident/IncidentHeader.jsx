@@ -1,3 +1,37 @@
+"use client";
+
+import { getUser } from "@/lib/session";
+
+async function updateStatus(id, status) {
+  const user = getUser();
+
+  const res = await fetch("/api/incidents/update-status", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      incidentId: id,
+      newStatus: status,
+      role: user.role,
+    }),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    alert(data.error);
+    return;
+  }
+
+  window.location.reload(); 
+}
+
+const user = getUser();
+const role = user?.role;
+
+
+
 export default function IncidentHeader({ incident }) {
   return (
     <div className="w-full border-b border-[#1f2937]">
@@ -32,15 +66,36 @@ export default function IncidentHeader({ incident }) {
 
         <div className="flex items-center gap-4">
 
-          <button className="px-5 py-2 rounded-xl bg-[#1f2937] text-white border border-[#374151] hover:bg-[#273549] transition">
+          <button
+            disabled={role === "employee"}
+            onClick={() => updateStatus(incident.incidentId, "Acknowledged")}
+            className={`px-4 py-2 rounded-lg ${
+              role === "employee"
+                ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+                : "bg-gray-800 text-white hover:bg-gray-700"
+            }`}
+            title={role === "employee" ? "Only managers/admins allowed" : ""}
+          >
             Acknowledge
           </button>
 
-          <button className="px-5 py-2 rounded-xl text-yellow-400 border border-yellow-500/40 bg-yellow-500/10 hover:bg-yellow-500/20 transition">
+          <button
+            onClick={() => updateStatus(incident.incidentId, "Escalated")}
+            className="px-4 py-2 rounded-lg bg-yellow-500/20 text-yellow-400 hover:bg-yellow-500/30"
+          >
             Escalate
           </button>
 
-          <button className="px-5 py-2 rounded-xl text-green-400 border border-green-500/40 bg-green-500/10 hover:bg-green-500/20 transition">
+          <button
+            disabled={role === "employee"}
+            onClick={() => updateStatus(incident.incidentId, "Resolved")}
+            className={`px-4 py-2 rounded-lg ${
+              role === "employee"
+                ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+                : "bg-green-500/20 text-green-400 hover:bg-green-500/30"
+            }`}
+            title={role === "employee" ? "Only managers/admins allowed" : ""}
+          >
             Resolve
           </button>
 

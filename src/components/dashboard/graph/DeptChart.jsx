@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { getUser } from "@/lib/session";
 import {
   BarChart,
   Bar,
@@ -9,19 +11,39 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  { department: "Distillation", value: 12 },
-  { department: "Cracking", value: 8 },
-  { department: "IT-Security", value: 15 },
-  { department: "SCADA", value: 6 },
-  { department: "Network", value: 9 },
-];
-
 export default function DepartmentChart() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const user = getUser();
+
+      const res = await fetch("/api/dashboard/departments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          orgId: user.organizationId,
+        }),
+      });
+
+      const result = await res.json();
+
+      const formatted = result.map((item) => ({
+        department: item.department,
+        value: Number(item.value),
+      }));
+
+      setData(formatted);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="w-[660px] h-[420px] ml-7 mt-7 mr-7 bg-bgCard rounded-2xl p-6 flex flex-col">
 
-     
       <div className="mb-4">
         <p className="text-white text-lg font-semibold">
           Incidents by Department
@@ -31,14 +53,10 @@ export default function DepartmentChart() {
         </p>
       </div>
 
-      
       <div className="flex-1">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={data}
-            layout="vertical"
-            margin={{ left: 30 }}
-          >
+          <BarChart data={data} layout="vertical" margin={{ left: 60 }}>
+
             <CartesianGrid
               strokeDasharray="4 4"
               stroke="#1f2937"
@@ -58,6 +76,8 @@ export default function DepartmentChart() {
               stroke="#64748b"
               tickLine={false}
               axisLine={false}
+              width={170} 
+              tick={{ fontSize: 18, fill: "#94a3b8" }} // 🔥 better readable size
             />
 
             <Bar
@@ -66,6 +86,7 @@ export default function DepartmentChart() {
               radius={[6, 6, 6, 6]}
               barSize={22}
             />
+
           </BarChart>
         </ResponsiveContainer>
       </div>
