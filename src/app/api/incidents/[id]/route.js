@@ -80,7 +80,7 @@ export async function GET(req, context) {
       domain: incident.domain,
       location: incident.location,
       time: new Date(incident.created_at).toLocaleString(),
-
+      status: incident.status, 
       affectedAssets: {
         all: assetsRes.rows.map(a => ({
           name: a.name,

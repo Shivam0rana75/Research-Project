@@ -1,65 +1,61 @@
-import { AlertCircle, CheckCircle, Mail, XCircle } from "lucide-react";
+"use client";
 
-const iconConfig = {
-  alert: {
-    bg: "bg-red-500/20",
-    text: "text-red-400",
-    icon: AlertCircle
-  },
-
-  defense: {
-    bg: "bg-blue-500/20",
-    text: "text-blue-400",
-    icon: CheckCircle
-  },
-
-  notification: {
-    bg: "bg-green-500/20",
-    text: "text-green-400",
-    icon: Mail
-  },
-
-  escalation: {
-    bg: "bg-yellow-500/20",
-    text: "text-yellow-400",
-    icon: XCircle
-  }
+const severityStyles = {
+  critical: "bg-red-500/20 text-red-400 border border-red-500/30",
+  high: "bg-orange-500/20 text-orange-400 border border-orange-500/30",
+  medium: "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30",
+  low: "bg-green-500/20 text-green-400 border border-green-500/30",
 };
 
-export default function IncidentTimeline({ timeline }) {
+export default function AffectedAssets({ assets }) {
+  const safeAssets = Array.isArray(assets) ? assets : [];
+
   return (
-    <div className="bg-bgCard rounded-2xl p-6 mt-6 w-full">
+    <div className="bg-bgCard rounded-3xl p-6 mt-6">
 
       <h2 className="text-white text-xl font-semibold mb-6">
-        Incident Timeline
+        Affected OT Equipment & IT Services
       </h2>
 
-      <div className="relative">
+      {safeAssets.length === 0 && (
+        <p className="text-gray-500 text-sm">
+          No affected assets found
+        </p>
+      )}
 
-        <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-[#1f2937]" />
+      <div className="flex flex-col gap-4">
 
-        {timeline.map((item, index) => {
-          const style = iconConfig[item.type];
-          const Icon = style.icon;
+        {safeAssets.map((asset, index) => {
+          const severity = asset?.severity?.toLowerCase();
 
           return (
-            <div key={index} className="flex items-start gap-6 mb-8">
-
-              <div className={`relative z-10 w-9 h-9 flex items-center justify-center rounded-full ${style.bg}`}>
-                <Icon className={`${style.text} w-4 h-4`} />
-              </div>
-
+            <div
+              key={index}
+              className="bg-[#1f2937]/40 rounded-3xl p-5 flex justify-between items-center hover:bg-[#1f2937]/60 transition"
+            >
+              
+              {/* LEFT */}
               <div>
+                <h3 className="text-white font-medium text-lg">
+                  {asset?.name || "Unknown Asset"}
+                </h3>
 
-                <p className="text-gray-400 text-sm">
-                  {item.time}
+                <p className="text-gray-400 text-sm mt-1">
+                  {asset?.type || "Unknown Type"}
                 </p>
-
-                <p className="text-[#C7D2E0] mt-1">
-                  {item.event}
-                </p>
-
               </div>
+
+              {/* RIGHT (SEVERITY BADGE) */}
+              <span
+                className={`px-4 py-1 text-xs font-semibold rounded-full ${
+                  severityStyles[severity] ||
+                  "bg-gray-700 text-gray-300"
+                } ${
+                  severity === "critical" ? "animate-pulse" : ""
+                }`}
+              >
+                {asset?.severity || "Unknown"}
+              </span>
 
             </div>
           );
